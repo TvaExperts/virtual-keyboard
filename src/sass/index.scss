@@ -9,8 +9,13 @@
   display: none;
 }
 
+.active {
+  background-color: darkgrey;
+  border-radius: 50px;
+}
+
 .wrapper {
-  max-width: 900px;
+  max-width: 934px;
   margin: 0 auto;
 }
 
@@ -57,5 +62,38 @@
 
 .keyboard__key:active {
   background-color: darkgrey;
-  border-radius: 35%;
+  border-radius: 50px;
+}
+
+.Backspace,
+.ShiftRight {
+  width: 130px;
+}
+
+.Tab,
+.ControlRight {
+  width: 70px;
+}
+
+.CapsLock {
+  width: 90px;
+  line-height: 18px;
+}
+
+.Enter {
+  width: 150px;
+}
+
+.ControlLeft {
+  width: 100px;
+}
+
+.AltRight,
+.AltLeft,
+.MetaLeft {
+  width: 60px;
+}
+
+.Space {
+  width: 330px;
 }
