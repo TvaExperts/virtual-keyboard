@@ -1,7 +1,7 @@
-const createElement = (tag, classes) => {
+export default function createElement(tag, classes) {
   const element = document.createElement(tag);
   element.classList.add(...classes);
   return element;
-};
+}
 
-export { createElement };
+// export { createElement };

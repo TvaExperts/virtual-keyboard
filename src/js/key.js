@@ -1,23 +1,19 @@
-import { dataKeys } from './data_keys';
-import { createElement } from './utils';
+import { getKeyData } from './data_keys';
+import createElement from './utils';
 import { KEYS_RU_CLASSES, KEYS_EN_CLASSES } from './data_classes';
 
-export class Key {
+export default class Key {
   constructor(code) {
     this.code = code;
   }
 
-  getKeyData = () => {
-    return dataKeys.filter(item => item.code === this.code)[0];
-  };
-
   generateKeySymbols = (lang) => {
-    const keyData = this.getKeyData();
+    const keyData = getKeyData(this.code);
     const {
-      key, keyBasic, keyShift, keyCaps, keyCapsShift
+      key, keyBasic, keyShift, keyCaps, keyCapsShift,
     } = (lang === 'en') ? KEYS_EN_CLASSES : KEYS_RU_CLASSES;
     const {
-      basic, shift, caps, capsShift
+      basic, shift, caps, capsShift,
     } = (lang === 'en') ? keyData.keysEn : keyData.keysRu;
     const keySymbols = createElement('div', [key]);
     const symbolBasic = createElement('div', [keyBasic]);

@@ -1,5 +1,5 @@
 import './sass/index.scss';
-import { KeyboardApp } from './js/keyboard';
+import KeyboardApp from './js/keyboard';
 
 document.addEventListener('DOMContentLoaded', () => {
   /* document.addEventListener('keydown', (event) => {
@@ -8,6 +8,6 @@ document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('keypress', (event) => {
     console.log(event);
   }); */
-  const key = new KeyboardApp('en');
+  const key = new KeyboardApp('ru');
   key.initKeyboard();
 });
