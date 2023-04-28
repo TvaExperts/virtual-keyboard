@@ -1,13 +1,14 @@
 import './sass/index.scss';
 import KeyboardApp from './js/keyboard';
 
+let keyboard;
+
 document.addEventListener('DOMContentLoaded', () => {
-  /* document.addEventListener('keydown', (event) => {
-    console.log(event);
-  });
-  document.addEventListener('keypress', (event) => {
-    console.log(event);
-  }); */
-  const key = new KeyboardApp('ru');
-  key.initKeyboard();
+  const lang = localStorage.getItem('lang') || 'en';
+  keyboard = new KeyboardApp(lang);
+  keyboard.initKeyboard();
+});
+
+window.addEventListener('beforeunload', () => {
+  localStorage.setItem('lang', keyboard.lang);
 });

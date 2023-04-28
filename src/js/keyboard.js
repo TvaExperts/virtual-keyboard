@@ -19,14 +19,16 @@ export default class KeyboardApp {
     capsShift: 3,
   };
 
-  ADDITIONAL_KEYS = ['Backspace', 'Tab', 'Delete', 'CapsLock', 'Enter', 'ShiftLeft', 'ShiftRight', 'ControlLeft', 'MetaLeft', 'AltLeft', 'AltRight', 'ControlRight', 'ArrowLeft', 'ArrowDown', 'ArrowRight', 'ArrowUp'];
+  ADDITIONAL_KEYS = ['Backspace', 'Tab', 'Delete', 'CapsLock', 'Enter', 'ShiftLeft',
+    'ShiftRight', 'ControlLeft', 'MetaLeft', 'AltLeft', 'AltRight', 'ControlRight',
+    'ArrowLeft', 'ArrowDown', 'ArrowRight', 'ArrowUp'];
 
   initKeyboard = () => {
     this.buildHeader();
     this.buildApp();
     this.updateKeyboardSymbolsByState();
-    this.body.addEventListener('keydown', this.keydownKeyboardHandler);
-    this.body.addEventListener('keyup', this.keyupKeyboardHandler);
+    window.addEventListener('keydown', this.keydownKeyboardHandler);
+    window.addEventListener('keyup', this.keyupKeyboardHandler);
     this.buildFooter();
   };
 
@@ -63,23 +65,40 @@ export default class KeyboardApp {
       });
       this.keyboard.append(row);
     });
+    document.addEventListener('mousedown', this.mousedownClickHandler);
+    document.addEventListener('mouseup', this.mouseupClickHandler);
     return this.keyboard;
+  };
+
+  mousedownClickHandler = (event) => {
+    const clickedKey = event.target.closest('.key');
+    if (clickedKey) {
+      const codeOfKey = clickedKey.classList[2];
+      this.lastMouseClickDownKeyCode = codeOfKey;
+      this.handleDownEventByCode(codeOfKey);
+    } else {
+      this.lastMouseClickDownKeyCode = '';
+    }
   };
 
   // Keydown методы
 
   keydownKeyboardHandler = (event) => {
-    const isActivated = this.activateKeyByCode(event.code);
+    this.isRepeat = event.repeat;
+    event.preventDefault();
+    this.handleDownEventByCode(event.code);
+  };
+
+  handleDownEventByCode = (code) => {
+    const isActivated = this.activateKeyByCode(code);
     if (!isActivated) {
       console.log('Клавиша не поддерживается пока!');
       return;
     }
-    if (!this.isKeyAdditional(event.code)) {
-      if (document.activeElement !== this.textarea) {
-        this.addTextInTextareaByCode(event.code);
-      }
+    if (!this.isKeyAdditional(code)) {
+      this.addTextInTextareaByCode(code);
     } else {
-      this.keydownAdditionalKeys(event);
+      this.keydownAdditionalKeys(code);
     }
   };
 
@@ -107,9 +126,9 @@ export default class KeyboardApp {
     this.textarea.selectionEnd = end + text.length;
   };
 
-  keydownAdditionalKeys = (event) => {
-    switch (event.code) {
-      case 'CapsLock': if (!event.repeat) this.toggleCaps();
+  keydownAdditionalKeys = (code) => {
+    switch (code) {
+      case 'CapsLock': if (!this.isRepeat) this.toggleCaps();
         break;
       case 'ShiftLeft':
       case 'ShiftRight':
@@ -127,14 +146,39 @@ export default class KeyboardApp {
       case 'ArrowDown':
       case 'ArrowRight':
       case 'ArrowUp':
-        event.preventDefault();
-        this.addTextInTextareaByCode(event.code);
+        this.addTextInTextareaByCode(code);
         break;
       case 'Tab':
-        event.preventDefault();
         this.addTextInTextArea('    ');
         break;
-      default: this.addTextInTextArea('\n');
+      case 'Backspace':
+        this.handleBackspaceTextarea();
+        break;
+      case 'Enter':
+        this.addTextInTextArea('\n');
+        break;
+      case 'Delete':
+        this.handleDelTextarea();
+        break;
+      default: console.log(code);
+    }
+  };
+
+  handleBackspaceTextarea = () => {
+    const start = this.textarea.selectionStart;
+    const end = this.textarea.selectionEnd;
+    if (start > 0) {
+      this.textarea.value = `${this.textarea.value.substring(0, start - 1)}${this.textarea.value.substring(end)}`;
+      this.textarea.selectionEnd = start - 1;
+    }
+  };
+
+  handleDelTextarea = () => {
+    const start = this.textarea.selectionStart;
+    const end = this.textarea.selectionEnd;
+    if (end < this.textarea.value.length) {
+      this.textarea.value = `${this.textarea.value.substring(0, start)}${this.textarea.value.substring(end + 1)}`;
+      this.textarea.selectionEnd = end;
     }
   };
 
@@ -211,12 +255,24 @@ export default class KeyboardApp {
   };
 
   keyupKeyboardHandler = (event) => {
-    const isGood = this.deactivateKeyByCode(event.code);
+    this.handleUpEventByCode(event.code);
+  };
+
+  mouseupClickHandler = () => {
+    if (this.lastMouseClickDownKeyCode) {
+      this.handleUpEventByCode(this.lastMouseClickDownKeyCode);
+    }
+  };
+
+  handleUpEventByCode = (code) => {
+    const isGood = this.deactivateKeyByCode(code);
     if (!isGood) {
-      console.log('Пока не особо:', event.code);
+      console.log('Пока не особо:', code);
       return;
     }
-    this.keyupAdditionalKeys(event.code);
+    if (this.isKeyAdditional(code)) {
+      this.keyupAdditionalKeys(code);
+    }
   };
 
   keyupAdditionalKeys = (code) => {
@@ -228,14 +284,34 @@ export default class KeyboardApp {
         this.turnOffShift();
         break;
       case 'ControlLeft':
+        if (this.isAlt) {
+          this.changeLanguage();
+          this.updateKeyboardSymbolsByState();
+        }
+        this.isControl = false;
+        break;
       case 'ControlRight':
-        this.turnOffControl();
+        this.isControl = false;
         break;
       case 'AltLeft':
+        if (this.isControl) {
+          this.changeLanguage();
+          this.updateKeyboardSymbolsByState();
+        }
+        this.isAlt = false;
+        break;
       case 'AltRight':
-        this.turnOffAlt();
+        this.isAlt = false;
         break;
       default: console.log(code);
+    }
+  };
+
+  changeLanguage = () => {
+    if (this.lang === 'en') {
+      this.lang = 'ru';
+    } else {
+      this.lang = 'en';
     }
   };
 
@@ -243,14 +319,6 @@ export default class KeyboardApp {
     this.isShift = false;
     this.state = this.getNewKeyboardState();
     this.updateKeyboardSymbolsByState();
-  };
-
-  turnOffControl = () => {
-    this.isControl = false;
-  };
-
-  turnOffAlt = () => {
-    this.isAlt = false;
   };
 
   deactivateKeyByCode = (code) => {
