@@ -4,7 +4,7 @@ import createElement from './utils';
 import Key from './key';
 
 export default class KeyboardApp {
-  constructor(lang) {
+  constructor(os, lang) {
     this.body = document.body;
     this.lang = lang;
     this.isShift = false;
@@ -56,8 +56,9 @@ export default class KeyboardApp {
   };
 
   buildKeyboard = () => {
+    this.checkOS();
     this.keyboard = createElement('div', ['keyboard']);
-    keysInLines.forEach((item) => {
+    keysInLines[this.os].forEach((item) => {
       const row = createElement('div', ['keyboard__row']);
       item.forEach((code) => {
         const key = new Key(code);
@@ -68,6 +69,15 @@ export default class KeyboardApp {
     document.addEventListener('mousedown', this.mousedownClickHandler);
     document.addEventListener('mouseup', this.mouseupClickHandler);
     return this.keyboard;
+  };
+
+  checkOS = () => {
+    const { platform } = window.navigator.userAgentData;
+    if (platform.includes('mac')) {
+      this.os = 'mac';
+    } else {
+      this.os = 'win';
+    }
   };
 
   mousedownClickHandler = (event) => {
@@ -168,17 +178,29 @@ export default class KeyboardApp {
     const start = this.textarea.selectionStart;
     const end = this.textarea.selectionEnd;
     if (start > 0) {
-      this.textarea.value = `${this.textarea.value.substring(0, start - 1)}${this.textarea.value.substring(end)}`;
-      this.textarea.selectionEnd = start - 1;
+      if (start === end) {
+        this.textarea.value = `${this.textarea.value.substring(0, start - 1)}${this.textarea.value.substring(end)}`;
+        this.textarea.selectionEnd = start - 1;
+        this.textarea.selectionStart = start - 1;
+      } else {
+        this.textarea.value = `${this.textarea.value.substring(0, start)}${this.textarea.value.substring(end)}`;
+        this.textarea.selectionEnd = start;
+        this.textarea.selectionStart = start;
+      }
     }
   };
 
   handleDelTextarea = () => {
     const start = this.textarea.selectionStart;
     const end = this.textarea.selectionEnd;
-    if (end < this.textarea.value.length) {
-      this.textarea.value = `${this.textarea.value.substring(0, start)}${this.textarea.value.substring(end + 1)}`;
-      this.textarea.selectionEnd = end;
+    if (start < this.textarea.value.length) {
+      if (start === end) {
+        this.textarea.value = `${this.textarea.value.substring(0, start)}${this.textarea.value.substring(end + 1)}`;
+      } else {
+        this.textarea.value = `${this.textarea.value.substring(0, start)}${this.textarea.value.substring(end)}`;
+      }
+      this.textarea.selectionEnd = start;
+      this.textarea.selectionStart = start;
     }
   };
 
@@ -335,7 +357,11 @@ export default class KeyboardApp {
     const gitElement = createElement('div', ['footer__git']);
     gitElement.innerHTML = '<a class="footer__link" href="https://github.com/TvaExperts/" target="_blank">github</a>';
     const explanationsElement = createElement('div', ['footer__explanations']);
-    explanationsElement.innerHTML = '<p class="footer__text">Клавиатура создана в ОС Windows</p><p class="footer__text">Для переключения языка: левыe ctrl + alt</p>';
+    if (this.os === 'mac') {
+      explanationsElement.innerHTML = '<p class="footer__text">Клавиатура создана в ОС MAC</p><p class="footer__text">Для переключения языка: левыe ctrl + alt</p>';
+    } else {
+      explanationsElement.innerHTML = '<p class="footer__text">Клавиатура создана в ОС Windows</p><p class="footer__text">Для переключения языка: левыe ctrl + alt</p>';
+    }
     const schoolLogoElement = createElement('div', ['footer__school-logo']);
     schoolLogoElement.innerHTML = '<a href="https://rs.school/js/" target="_blank"><img class="footer__img" src="./assets/rs_school_js.svg" alt="RS School Logo"></a>';
     wrapper.append(gitElement);
