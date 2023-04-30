@@ -5,10 +5,10 @@ const keysInLines = {
     ['ShiftLeft', 'IntlBackslash', 'KeyZ', 'KeyX', 'KeyC', 'KeyV', 'KeyB', 'KeyN', 'KeyM', 'Comma', 'Period', 'Slash', 'ArrowUp', 'ShiftRight'],
     ['ControlLeft', 'MetaLeft', 'AltLeft', 'Space', 'AltRight', 'ArrowLeft', 'ArrowDown', 'ArrowRight', 'ControlRight']],
   mac: [['Backquote', 'Digit1', 'Digit2', 'Digit3', 'Digit4', 'Digit5', 'Digit6', 'Digit7', 'Digit8', 'Digit9', 'Digit0', 'Minus', 'Equal', 'Backspace'],
-    ['Tab', 'KeyQ', 'KeyW', 'KeyE', 'KeyR', 'KeyT', 'KeyY', 'KeyU', 'KeyI', 'KeyO', 'KeyP', 'BracketLeft', 'BracketRight', 'Backslash', 'Delete'],
+    ['Tab', 'KeyQ', 'KeyW', 'KeyE', 'KeyR', 'KeyT', 'KeyY', 'KeyU', 'KeyI', 'KeyO', 'KeyP', 'BracketLeft', 'BracketRight', 'Backslash'],
     ['CapsLock', 'KeyA', 'KeyS', 'KeyD', 'KeyF', 'KeyG', 'KeyH', 'KeyJ', 'KeyK', 'KeyL', 'Semicolon', 'Quote', 'Enter'],
-    ['ShiftLeft', 'IntlBackslash', 'KeyZ', 'KeyX', 'KeyC', 'KeyV', 'KeyB', 'KeyN', 'KeyM', 'Comma', 'Period', 'Slash', 'ArrowUp', 'ShiftRight'],
-    ['ControlLeft', 'MetaLeft', 'AltLeft', 'Space', 'AltRight', 'ArrowLeft', 'ArrowDown', 'ArrowRight', 'ControlRight']],
+    ['ShiftLeft', 'IntlBackslash', 'KeyZ', 'KeyX', 'KeyC', 'KeyV', 'KeyB', 'KeyN', 'KeyM', 'Comma', 'Period', 'Slash', 'ShiftRight'],
+    ['ControlLeft', 'AltLeft', 'MetaLeft', 'Space', 'MetaRight', 'AltRight', 'ArrowLeft', 'ArrowDown', 'ArrowRight']],
 };
 
 const dataKeys = [{
@@ -24,6 +24,18 @@ const dataKeys = [{
     shift: 'Ё',
     caps: 'Ё',
     capsShift: 'ё',
+  },
+  keysMacEn: {
+    basic: '§',
+    shift: '±',
+    caps: '§',
+    capsShift: '±',
+  },
+  keysMacRu: {
+    basic: '>',
+    shift: '<',
+    caps: '>',
+    capsShift: '<',
   },
 },
 {
@@ -85,6 +97,12 @@ const dataKeys = [{
     caps: '4',
     capsShift: ';',
   },
+  keysMacRu: {
+    basic: '4',
+    shift: '%',
+    caps: '4',
+    capsShift: '%',
+  },
 },
 {
   code: 'Digit5',
@@ -99,6 +117,12 @@ const dataKeys = [{
     shift: '%',
     caps: '5',
     capsShift: '%',
+  },
+  keysMacRu: {
+    basic: '5',
+    shift: ':',
+    caps: '5',
+    capsShift: ':',
   },
 },
 {
@@ -115,6 +139,12 @@ const dataKeys = [{
     caps: '6',
     capsShift: ':',
   },
+  keysMacRu: {
+    basic: '6',
+    shift: ',',
+    caps: '6',
+    capsShift: ',',
+  },
 },
 {
   code: 'Digit7',
@@ -130,6 +160,12 @@ const dataKeys = [{
     caps: '7',
     capsShift: '?',
   },
+  keysMacRu: {
+    basic: '7',
+    shift: '.',
+    caps: '7',
+    capsShift: '.',
+  },
 },
 {
   code: 'Digit8',
@@ -144,6 +180,12 @@ const dataKeys = [{
     shift: '*',
     caps: '8',
     capsShift: '*',
+  },
+  keysMacRu: {
+    basic: '8',
+    shift: ';',
+    caps: '8',
+    capsShift: ';',
   },
 },
 {
@@ -625,6 +667,12 @@ const dataKeys = [{
     caps: '\\',
     capsShift: '/',
   },
+  keysMacRu: {
+    basic: 'ё',
+    shift: 'Ё',
+    caps: 'Ё',
+    capsShift: 'ё',
+  },
 },
 {
   code: 'ShiftLeft',
@@ -654,6 +702,18 @@ const dataKeys = [{
     shift: '/',
     caps: '\\',
     capsShift: '/',
+  },
+  keysMacEn: {
+    basic: '`',
+    shift: '~',
+    caps: '`',
+    capsShift: '~',
+  },
+  keysMacRu: {
+    basic: ']',
+    shift: '[',
+    caps: ']',
+    capsShift: '[',
   },
 },
 {
@@ -805,6 +865,12 @@ const dataKeys = [{
     caps: '.',
     capsShift: ',',
   },
+  keysMacRu: {
+    basic: '/',
+    shift: '?',
+    caps: '/',
+    capsShift: '?',
+  },
 },
 {
   code: 'ShiftRight',
@@ -835,6 +901,18 @@ const dataKeys = [{
     caps: 'Ctrl',
     capsShift: 'Ctrl',
   },
+  keysMacEn: {
+    basic: 'control',
+    shift: 'control',
+    caps: 'control',
+    capsShift: 'control',
+  },
+  keysMacRu: {
+    basic: 'control',
+    shift: 'control',
+    caps: 'control',
+    capsShift: 'control',
+  },
 },
 {
   code: 'MetaLeft',
@@ -850,6 +928,45 @@ const dataKeys = [{
     caps: 'Win',
     capsShift: 'Win',
   },
+  keysMacEn: {
+    basic: 'command',
+    shift: 'command',
+    caps: 'command',
+    capsShift: 'command',
+  },
+  keysMacRu: {
+    basic: 'command',
+    shift: 'command',
+    caps: 'command',
+    capsShift: 'command',
+  },
+},
+{
+  code: 'MetaRight',
+  keysEn: {
+    basic: 'Win',
+    shift: 'Win',
+    caps: 'Win',
+    capsShift: 'Win',
+  },
+  keysRu: {
+    basic: 'Win',
+    shift: 'Win',
+    caps: 'Win',
+    capsShift: 'Win',
+  },
+  keysMacEn: {
+    basic: 'command',
+    shift: 'command',
+    caps: 'command',
+    capsShift: 'command',
+  },
+  keysMacRu: {
+    basic: 'command',
+    shift: 'command',
+    caps: 'command',
+    capsShift: 'command',
+  },
 },
 {
   code: 'AltLeft',
@@ -864,6 +981,18 @@ const dataKeys = [{
     shift: 'Alt',
     caps: 'Alt',
     capsShift: 'Alt',
+  },
+  keysMacEn: {
+    basic: 'option',
+    shift: 'option',
+    caps: 'option',
+    capsShift: 'option',
+  },
+  keysMacRu: {
+    basic: 'option',
+    shift: 'option',
+    caps: 'option',
+    capsShift: 'option',
   },
 },
 {
@@ -895,6 +1024,18 @@ const dataKeys = [{
     caps: 'Alt',
     capsShift: 'Alt',
   },
+  keysMacEn: {
+    basic: 'option',
+    shift: 'option',
+    caps: 'option',
+    capsShift: 'option',
+  },
+  keysMacRu: {
+    basic: 'option',
+    shift: 'option',
+    caps: 'option',
+    capsShift: 'option',
+  },
 },
 {
   code: 'ControlRight',
@@ -914,61 +1055,61 @@ const dataKeys = [{
 {
   code: 'ArrowUp',
   keysEn: {
-    basic: '⯅',
-    shift: '⯅',
-    caps: '⯅',
-    capsShift: '⯅',
+    basic: '▲',
+    shift: '▲',
+    caps: '▲',
+    capsShift: '▲',
   },
   keysRu: {
-    basic: '⯅',
-    shift: '⯅',
-    caps: '⯅',
-    capsShift: '⯅',
+    basic: '▲',
+    shift: '▲',
+    caps: '▲',
+    capsShift: '▲',
   },
 },
 {
   code: 'ArrowLeft',
   keysEn: {
-    basic: '⯇',
-    shift: '⯇',
-    caps: '⯇',
-    capsShift: '⯇',
+    basic: '◀',
+    shift: '◀',
+    caps: '◀',
+    capsShift: '◀',
   },
   keysRu: {
-    basic: '⯇',
-    shift: '⯇',
-    caps: '⯇',
-    capsShift: '⯇',
+    basic: '◀',
+    shift: '◀',
+    caps: '◀',
+    capsShift: '◀',
   },
 },
 {
   code: 'ArrowDown',
   keysEn: {
-    basic: '⯆',
-    shift: '⯆',
-    caps: '⯆',
-    capsShift: '⯆',
+    basic: '▼',
+    shift: '▼',
+    caps: '▼',
+    capsShift: '▼',
   },
   keysRu: {
-    basic: '⯆',
-    shift: '⯆',
-    caps: '⯆',
-    capsShift: '⯆',
+    basic: '▼',
+    shift: '▼',
+    caps: '▼',
+    capsShift: '▼',
   },
 },
 {
   code: 'ArrowRight',
   keysEn: {
-    basic: '⯈',
-    shift: '⯈',
-    caps: '⯈',
-    capsShift: '⯈',
+    basic: '▶',
+    shift: '▶',
+    caps: '▶',
+    capsShift: '▶',
   },
   keysRu: {
-    basic: '⯈',
-    shift: '⯈',
-    caps: '⯈',
-    capsShift: '⯈',
+    basic: '▶',
+    shift: '▶',
+    caps: '▶',
+    capsShift: '▶',
   },
 },
 {

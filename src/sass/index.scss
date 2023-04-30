@@ -50,6 +50,7 @@
   border: 1px solid gainsboro;
   border-radius: 5px;
   cursor: pointer;
+  overflow: hidden;
   transition: border-radius 0.25s, background-color 0.25s;
 }
 
@@ -87,12 +88,48 @@
 
 .AltRight,
 .AltLeft,
-.MetaLeft {
+.MetaLeft,
+.MetaRight {
   width: 60px;
 }
 
 .Space {
   width: 330px;
+}
+
+.mac {
+
+  & .wrapper {
+    width: 874px;
+  }
+
+  & .Backspace {
+    width: 70px;
+  }
+
+  & .Enter {
+    width: 90px;
+  }
+
+  & .Space {
+    width: 280px;
+  }
+  & .CapsLock, 
+  & .Tab, 
+  & .Enter, 
+  & .ShiftLeft, 
+  & .ShiftRight, 
+  & .Backspace, 
+  & .AltRight,
+  & .AltLeft,
+  & .MetaLeft,
+  & .MetaRight,
+  & .ControlLeft {
+    font-size: 10px;
+    line-height: 60px;
+    text-transform: lowercase;
+
+  }
 }
 
 .footer__wrapper {

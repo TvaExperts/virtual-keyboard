@@ -56,16 +56,17 @@ export default class KeyboardApp {
   };
 
   buildKeyboard = () => {
-    this.checkOS();
     this.keyboard = createElement('div', ['keyboard']);
+    this.checkOS();
     keysInLines[this.os].forEach((item) => {
       const row = createElement('div', ['keyboard__row']);
       item.forEach((code) => {
-        const key = new Key(code);
+        const key = new Key(this.os, code);
         row.append(key.buildKeyElement());
       });
       this.keyboard.append(row);
     });
+
     document.addEventListener('mousedown', this.mousedownClickHandler);
     document.addEventListener('mouseup', this.mouseupClickHandler);
     return this.keyboard;
@@ -73,8 +74,10 @@ export default class KeyboardApp {
 
   checkOS = () => {
     const { platform } = window.navigator.userAgentData;
+    console.log(platform);
     if (platform.includes('mac')) {
       this.os = 'mac';
+      this.body.classList.add('mac');
     } else {
       this.os = 'win';
     }
@@ -96,6 +99,7 @@ export default class KeyboardApp {
   keydownKeyboardHandler = (event) => {
     this.isRepeat = event.repeat;
     event.preventDefault();
+    console.log(event.code);
     this.handleDownEventByCode(event.code);
   };
 
@@ -124,7 +128,12 @@ export default class KeyboardApp {
 
   addTextInTextareaByCode = (code) => {
     const keyData = getKeyData(code);
-    const keys = (this.lang === 'en') ? keyData.keysEn : keyData.keysRu;
+    let keys;
+    if (this.lang === 'en') {
+      (keyData.hasOwnProperty('keysMacEn')) ? keys = keyData.keysMacEn : keys = keyData.keysEn;
+    } else {
+      (keyData.hasOwnProperty('keysMacRu')) ? keys = keyData.keysMacRu : keys = keyData.keysRu;
+    } 
     const symbol = Object.values(keys)[this.state];
     this.addTextInTextArea(symbol);
   };
@@ -133,7 +142,8 @@ export default class KeyboardApp {
     const start = this.textarea.selectionStart;
     const end = this.textarea.selectionEnd;
     this.textarea.value = `${this.textarea.value.substring(0, start)}${text}${this.textarea.value.substring(end)}`;
-    this.textarea.selectionEnd = end + text.length;
+    this.textarea.selectionEnd = start + text.length;
+    this.textarea.selectionStart = start + text.length;
   };
 
   keydownAdditionalKeys = (code) => {
@@ -358,7 +368,7 @@ export default class KeyboardApp {
     gitElement.innerHTML = '<a class="footer__link" href="https://github.com/TvaExperts/" target="_blank">github</a>';
     const explanationsElement = createElement('div', ['footer__explanations']);
     if (this.os === 'mac') {
-      explanationsElement.innerHTML = '<p class="footer__text">Клавиатура создана в ОС MAC</p><p class="footer__text">Для переключения языка: левыe ctrl + alt</p>';
+      explanationsElement.innerHTML = '<p class="footer__text">Клавиатура создана в ОС MAC</p><p class="footer__text">Для переключения языка: левыe control + option</p>';
     } else {
       explanationsElement.innerHTML = '<p class="footer__text">Клавиатура создана в ОС Windows</p><p class="footer__text">Для переключения языка: левыe ctrl + alt</p>';
     }

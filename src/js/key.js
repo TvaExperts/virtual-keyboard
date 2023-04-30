@@ -3,18 +3,36 @@ import createElement from './utils';
 import { KEYS_RU_CLASSES, KEYS_EN_CLASSES } from './data_classes';
 
 export default class Key {
-  constructor(code) {
+  constructor(os, code) {
+    this.os = os;
     this.code = code;
   }
 
   generateKeySymbols = (lang) => {
     const keyData = getKeyData(this.code);
+    console.log(this.code);
+    let classes;
+    let symbols;
+    if (lang === 'en') {
+      classes = KEYS_EN_CLASSES;
+      symbols = keyData.keysEn;
+      if ((this.os === 'mac') && (keyData.hasOwnProperty('keysMacEn'))) {
+        symbols = keyData.keysMacEn;
+      }
+    } else {
+      classes = KEYS_RU_CLASSES;
+      symbols = keyData.keysRu;
+      if ((this.os === 'mac') && (keyData.hasOwnProperty('keysMacRu'))) {
+        symbols = keyData.keysMacRu;
+      }
+    }
     const {
       key, keyBasic, keyShift, keyCaps, keyCapsShift,
-    } = (lang === 'en') ? KEYS_EN_CLASSES : KEYS_RU_CLASSES;
+    } = classes;
+
     const {
       basic, shift, caps, capsShift,
-    } = (lang === 'en') ? keyData.keysEn : keyData.keysRu;
+    } = symbols;
     const keySymbols = createElement('div', [key]);
     const symbolBasic = createElement('div', [keyBasic]);
     symbolBasic.innerText = basic;
