@@ -4,7 +4,7 @@ import createElement from './utils';
 import Key from './key';
 
 export default class KeyboardApp {
-  constructor(os, lang) {
+  constructor(lang) {
     this.body = document.body;
     this.lang = lang;
     this.isShift = false;
