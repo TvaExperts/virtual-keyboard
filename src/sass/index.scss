@@ -6,8 +6,6 @@
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
-
-
 .wrapper {
   max-width: 934px;
   margin: 0 auto;
@@ -25,6 +23,7 @@
   text-align: left;
   border: 2px solid gray;
   border-radius: 5px;
+  outline:none;
 }
 
 .keyboard {
@@ -114,13 +113,13 @@
   & .Space {
     width: 280px;
   }
-  
-  & .CapsLock, 
-  & .Tab, 
-  & .Enter, 
-  & .ShiftLeft, 
-  & .ShiftRight, 
-  & .Backspace, 
+
+  & .CapsLock,
+  & .Tab,
+  & .Enter,
+  & .ShiftLeft,
+  & .ShiftRight,
+  & .Backspace,
   & .AltRight,
   & .AltLeft,
   & .MetaLeft,
@@ -129,7 +128,21 @@
     font-size: 10px;
     line-height: 60px;
     text-transform: lowercase;
+  }
 
+  & .arrow-wrap {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 50px;
+    margin: 5px;
+  }
+
+  & .ArrowUp,
+  & .ArrowDown {
+    height: 23px;
+    margin: 0;
+    line-height: 12px;
   }
 }
 

@@ -3,5 +3,3 @@ export default function createElement(tag, classes) {
   element.classList.add(...classes);
   return element;
 }
-
-// export { createElement };

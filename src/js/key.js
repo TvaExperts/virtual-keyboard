@@ -10,19 +10,18 @@ export default class Key {
 
   generateKeySymbols = (lang) => {
     const keyData = getKeyData(this.code);
-    console.log(this.code);
     let classes;
     let symbols;
     if (lang === 'en') {
       classes = KEYS_EN_CLASSES;
       symbols = keyData.keysEn;
-      if ((this.os === 'mac') && (keyData.hasOwnProperty('keysMacEn'))) {
+      if ((this.os === 'mac') && (Object.prototype.hasOwnProperty.call(keyData, 'keysMacEn'))) {
         symbols = keyData.keysMacEn;
       }
     } else {
       classes = KEYS_RU_CLASSES;
       symbols = keyData.keysRu;
-      if ((this.os === 'mac') && (keyData.hasOwnProperty('keysMacRu'))) {
+      if ((this.os === 'mac') && (Object.prototype.hasOwnProperty.call(keyData, 'keysMacRu'))) {
         symbols = keyData.keysMacRu;
       }
     }
