@@ -1,0 +1,176 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-align: center;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.wrapper {
+  max-width: 934px;
+  margin: 0 auto;
+}
+
+.header__title {
+  margin: 40px 0;
+}
+
+.textarea {
+  display: block;
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 5px;
+  text-align: left;
+  border: 2px solid gray;
+  border-radius: 5px;
+  outline: none;
+}
+
+.keyboard {
+  padding: 5px;
+  line-height: 40px;
+  border: 2px solid gray;
+  border-radius: 5px;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  user-select: none;
+}
+
+.keyboard__row {
+  display: flex;
+}
+
+.keyboard__key {
+  box-sizing: border-box;
+  width: 50px;
+  height: 50px;
+  margin: 5px;
+  padding: 5px;
+  border: 1px solid gainsboro;
+  border-radius: 5px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: border-radius 0.25s, background-color 0.25s;
+}
+
+.keyboard__key:hover {
+  background-color: antiquewhite;
+}
+
+.keyboard__key:active {
+  background-color: darkgrey;
+  border-radius: 50px;
+}
+
+.Backspace,
+.ShiftRight {
+  width: 130px;
+}
+
+.Tab,
+.ControlRight {
+  width: 70px;
+}
+
+.CapsLock {
+  width: 90px;
+  line-height: 18px;
+}
+
+.Enter {
+  width: 150px;
+}
+
+.ControlLeft {
+  width: 100px;
+}
+
+.AltRight,
+.AltLeft,
+.MetaLeft,
+.MetaRight {
+  width: 60px;
+}
+
+.Space {
+  width: 330px;
+}
+
+.mac {
+
+  & .wrapper {
+    width: 874px;
+  }
+
+  & .Backspace {
+    width: 70px;
+  }
+
+  & .Enter {
+    width: 90px;
+  }
+
+  & .Space {
+    width: 280px;
+  }
+
+  & .CapsLock,
+  & .Tab,
+  & .Enter,
+  & .ShiftLeft,
+  & .ShiftRight,
+  & .Backspace,
+  & .AltRight,
+  & .AltLeft,
+  & .MetaLeft,
+  & .MetaRight,
+  & .ControlLeft {
+    font-size: 10px;
+    line-height: 60px;
+    text-transform: lowercase;
+  }
+
+  & .arrow-wrap {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 50px;
+    margin: 5px;
+  }
+
+  & .ArrowUp,
+  & .ArrowDown {
+    height: 23px;
+    margin: 0;
+    line-height: 12px;
+  }
+}
+
+.footer__wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 30px;
+}
+
+.footer__link {
+  text-decoration: none;
+  color: black;
+}
+
+.footer__text {
+  line-height: 25px;
+}
+
+.footer__img {
+  width: 90px;
+}
+
+.hidden {
+  display: none;
+}
+
+.active {
+  background-color: darkgrey;
+  border-radius: 50px;
+}
