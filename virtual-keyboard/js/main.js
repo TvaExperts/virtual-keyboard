@@ -1360,8 +1360,8 @@ class KeyboardApp {
   };
 
   checkOS = () => {
-    const { platform } = window.navigator.userAgentData;
-    if (platform.includes('mac')) {
+    const { userAgent } = window.navigator;
+    if (userAgent.toLowerCase().includes('mac')) {
       this.os = 'mac';
       this.body.classList.add('mac');
     } else {
